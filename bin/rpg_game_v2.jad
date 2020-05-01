@@ -1,0 +1,8 @@
+MIDlet-1: Legends Online, rpg.png, HardDriveMIDlet
+MIDlet-Jar-Size: 1200422
+MIDlet-Jar-URL: rpg_game.jar
+MIDlet-Name: Legends Online
+MIDlet-Vendor: aNGREe
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-2.0
