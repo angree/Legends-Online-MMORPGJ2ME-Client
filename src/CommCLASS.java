@@ -3,9 +3,9 @@ import javax.microedition.lcdui.game.*;
 
 public class CommCLASS {
 
-  LegendsMIDlet legendsmidlet;
+  //LegendsMIDlet legendsmidlet;
   LegendsCanvas legendscanvas;
-  ProcedureCLASS procedureclass;
+  ProcedureCLASS procedureclass = new ProcedureCLASS();
 
   int spell_serw_odebrano = 0;
   int postac_klient = -1;
@@ -22,7 +22,12 @@ public class CommCLASS {
   int i, j, k, l, m, n, o;
   String napis;
 
+  public void Setlegendscanvas(LegendsCanvas lomidlet) {
+      legendscanvas = lomidlet;
+  }
+
   public void comm() {
+
    int wyj = 1;
    int sczytal = 1; //zmienna ktora sprawdza czy dane zostaly szczytane przy ostatniej petli - przy pierwszym przejsciu 1 zeby chocicaz raz przeszlo
    spell_serw_odebrano = 0; //zerowanie statusu o tym czy odebrano info o spellu
@@ -43,7 +48,9 @@ public class CommCLASS {
       }
       napis = "" + sb.toString(); //nie uzywane juz ale niech zostanie
      }
+
     } catch (IOException ioe) {}
+
     if ((buf[0] == 68) && (m > 5)) { // jesli pierwszy znak to D - informacja o dmg
      postac_klient = -1; //jesli nie wiadomo czyje to dmg to zaczy ze to gracza
      i = ((buf[1] - 128) * 128) + buf[2] - 128; //numer postaci na serwie
@@ -84,6 +91,7 @@ public class CommCLASS {
       }
      }
     }
+
     if ((buf[0] == 65) && (m > 1)) { // A - informacja o castowanych spellach
      i = (buf[1] - 128);
      if (spell_serw_odebrano == 1)
@@ -222,6 +230,7 @@ public class CommCLASS {
       }
      }
     }
+
     if ((buf[0] == 77) && (m > 3)) { // jesli pierwszy znak to M - mapa (?)
      i = ((buf[1] - 128) * 128) + buf[2] - 128; //numer planszy jaka trzeba wlaczyc
      j = ((buf[3] - 128) * 128) + buf[4] - 128;
@@ -325,7 +334,7 @@ public class CommCLASS {
     if ((buf[0] == 87) && (m > 5)) { // jesli pierwszy znak to W (welcome) to transmisja dotyczy pozytywnego logowania
      legendscanvas.zalogowany = 1; //WELCOME
      if ((buf[1] - 128) != legendscanvas.version) {
-      legendscanvas.version = -1;
+      legendscanvas.version = (buf[1] - 128);
      }
      i = ((buf[2] - 128) * 128) + buf[3] - 128; //numer planszy jaka trzeba wlaczyc
      j = ((buf[4] - 128) * 128) + buf[5] - 128; //pozycja_x w blokach

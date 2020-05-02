@@ -13,6 +13,7 @@ implements CommandListener {
  private Display dgDisplay;
  private LegendsCanvas hdCanvas;
 
+ CommCLASS commclass = new CommCLASS();
 
  static final Command ExitCommand = new Command("Exit", Command.EXIT, 0);
 
@@ -28,7 +29,7 @@ implements CommandListener {
    hdCanvas.addCommand(ExitCommand);
    hdCanvas.setCommandListener(this);
   } catch (IOException ioe) {
-   System.err.println("Problem loading image " + ioe);
+   System.err.println("Problem loading " + ioe);
   }
 
   dgDisplay.setCurrent(hdCanvas);
@@ -78,8 +79,11 @@ implements Runnable {
   private Command sendCommand = new Command("Send", Command.ITEM, 1);
   private Command exitCommand = new Command("Exit", Command.EXIT, 1);
 
-  ProcedureCLASS procedureclass;
-  CommCLASS commclass;
+  ProcedureCLASS procedureclass = new ProcedureCLASS();
+  CommCLASS commclass = new CommCLASS();
+  public void comm_init() {
+    commclass.Setlegendscanvas(this);
+  }
 
   public String message2;
   private String address2;
@@ -502,6 +506,7 @@ implements Runnable {
 
 
  public void start() {
+  comm_init();
   gameRunning = true;
   Thread gameThread = new Thread(this);
   gameThread.start();
@@ -1726,6 +1731,7 @@ implements Runnable {
       commclass.comm();
      }
      if (zalogowany == 0) {
+
       commclass.comm();
       if (version == -1) {
        g.setColor(255, 0, 0);
